@@ -31,7 +31,6 @@ public class Configure {
 	public static Configure getInstance() {
 		if (configure == null) {
 			configure = new Configure();
-			configure.init();
 		}
 		return configure;
 	}
@@ -42,7 +41,7 @@ public class Configure {
 	 * ./properties/system.properties
 	 */
 	private static Configuration sysConfig;
-	private void init() {
+	public void init() {
 		try {
 			sysConfig = new PropertiesConfiguration(ConfigFile.SYS_CONFIG);
 			
