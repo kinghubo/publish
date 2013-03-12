@@ -8,16 +8,27 @@
     
     <!-- 首页 -->
     <package name="index" extends="struts-default" namespace="/">
-        <action name="Index" class="com.feinno.publish.action.IndexAction">
-            <result>/Backup_desc.jsp</result>
-        </action>
+        <action name="Index" class="com.feinno.publish.action.IndexAction" />
     </package>
     
     <!-- 操作 -->
     <package name="operation" extends="struts-default" namespace="/operation">
+    	<!-- 定义一个拦截器 -->
+		<interceptors>
+			<interceptor name="sessionOut"
+				class="com.feinno.publish.iterceptor.ValidateSessionIterceptor"></interceptor>
+			<!-- 拦截器栈 -->
+			<interceptor-stack name="hxDefault">
+				<interceptor-ref name="defaultStack" />
+				<interceptor-ref name="sessionOut" />
+			</interceptor-stack>
+		</interceptors>
+		<!-- 默认拦截器 -->
+		<default-interceptor-ref name="hxDefault"></default-interceptor-ref>
+    
         <!-- 这里采用通配符的配置方式，第一个表示action的前缀名，第二个代表调用的方法名称 -->
         <action name="*_*" class="com.feinno.publish.action.{1}Action" method="{2}">
-            <result>/{1}_{2}.jsp</result>
+            <result>/pages/{1}_{2}.jsp</result>
         </action>
     </package>
     

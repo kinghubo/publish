@@ -1,18 +1,18 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-<%@ include file="/include.jsp"%>
+<%@ include file="/pages/include.jsp"%>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>
     <base href="<%=basePath%>">
     
-    <title>重启服务</title>
+    <title>系统备份</title>
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 	<meta http-equiv="description" content="This is my page">
-	
+    
     <style type="text/css">
       body {
         padding-top: 60px;
@@ -40,52 +40,36 @@
           <div class="well sidebar-nav">
             <ul class="nav nav-list">
               <li class="nav-header">操作菜单</li>
-              <li><a href="<%=basePath%>operation/Backup_desc">系统备份</a></li>
+              <li class="active"><a href="<%=basePath%>operation/Backup_desc">系统备份</a></li>
               <li><a href="<%=basePath%>operation/Upload_desc">上传代码</a></li>
               <li><a href="<%=basePath%>operation/Publish_desc">发布系统</a></li>
-              <li class="active"><a href="<%=basePath%>operation/Service_desc">重启服务</a></li>
+              <li><a href="<%=basePath%>operation/Service_desc">重启服务</a></li>
             </ul>
           </div><!--/.well -->
         </div><!--/span-->
         <div class="span9">
           <div class="hero-unit" style="padding: 20px;">
-            <h1>重启服务</h1>
-            <p>对服务器进行重启操作，目前有三个服务器，分别是：tomcat、server、synchronized</p>
-            <p>重启步骤：1、关闭服务；2、kill进程；3、启动服务
-            </p>
+            <h1>系统备份</h1>
+            <p>对当前系统进行备份，将目前正在运行的代码打包放到备份目录中。</p>
+            <p>备份目录：/var/www/app/bak</p>
+            <p>命名规则：项目名称_YYYY-MM-DD_hh:mm:ss。例如：zhaogongbao_2013-03-06_12:30:00.zip</p>
           </div>
-          <div class="row-fluid">
-            <div class="span4">
-              <h2>影响的项目</h2>
+          <div class="hero-unit" style="padding: 20px;">
+          	<center>
+	            <h2>选择项目</h2>
 	            <p>
 	            	<select id="selectProduct" size="6" multiple="multiple" >
+						<option value="hx-server">hx-server</option>
+						<option value="hx-synchronized">hx-synchronized</option>
 						<option value="zhaogongbao">zhaogongbao</option>
 						<option value="cms">cms</option>
 						<option value="yd-ass">yd-ass</option>
 						<option value="cqjxw">cqjxw</option>
 					</select>
 	            </p>
-              <p><a class="btn btn-large btn-primary" href="javascript:;" onclick="restart(1)">重启tomcat &raquo;</a></p>
-            </div><!--/span-->
-            <div class="span4">
-              <h2>影响的项目</h2>
-	            <p>
-	            	<select id="selectProduct" size="6" multiple="multiple" >
-						<option value="server">server</option>
-					</select>
-	            </p>
-              <p><a class="btn btn-large btn-primary" href="javascript:;" onclick="restart(2)">重启server &raquo;</a></p>
-            </div><!--/span-->
-            <div class="span4">
-              <h2>影响的项目</h2>
-	            <p>
-	            	<select id="selectProduct" size="6" multiple="multiple" >
-						<option value="synchronized">synchronized</option>
-					</select>
-	            </p>
-              <p><a class="btn btn-large btn-primary" href="javascript:;" onclick="restart(3)">重启synchronized &raquo;</a></p>
-            </div><!--/span-->
-          </div><!--/row-->
+	            <p><a class="btn btn-large btn-primary" href="javascript:;" onclick="backup()">开始备份 &raquo;</a></p>
+	      	</center>
+          </div>
         </div><!--/span-->
       </div><!--/row-->
 
@@ -100,20 +84,20 @@
 </html>
 
 <script type="text/javascript">
-	function restart(type) {
-		var serviceType = new Array();
-		serviceType[1] = 'tomcat';
-		serviceType[2] = 'server';
-		serviceType[3] = 'synchronized';
-		if(typeof(type) != 'undefined') {
-			if(confirm("确定要重启【" + serviceType[type] + "】吗?")){
+	function backup() {
+		var products = $('#selectProduct').val();
+		if(typeof(products) != 'undefined' && products != null && products.length > 0) {
+			if(confirm("确定要备份项目【"+products+"】吗?")){
 				ajaxPost({
-					url : "<%=basePath%>operation/Service_restart?type=" + type,
+					url : "<%=basePath%>operation/Backup_backup?products=" + products,
 					success : function(response) {
 						alert(response.data);
 					}
 				});
 			}
+			
+		} else {
+			alert("请至少选择一个项目！");
 		}
 	}
 </script>

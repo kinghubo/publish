@@ -10,3 +10,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script src="<%=basePath %>bootstrap/js/bootstrap.js"></script>
 <script src="<%=basePath%>js/util.js"></script>
 <script src="<%=basePath%>js/jquery.form.js"></script>
+
+<script type="text/javascript">
+	var basePath = "<%=basePath%>";
+</script>

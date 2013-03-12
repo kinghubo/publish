@@ -1,12 +1,12 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-<%@ include file="/include.jsp"%>
+<%@ include file="/pages/include.jsp"%>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>
     <base href="<%=basePath%>">
     
-    <title>发布系统</title>
+    <title>重启服务</title>
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
@@ -42,34 +42,50 @@
               <li class="nav-header">操作菜单</li>
               <li><a href="<%=basePath%>operation/Backup_desc">系统备份</a></li>
               <li><a href="<%=basePath%>operation/Upload_desc">上传代码</a></li>
-              <li class="active"><a href="<%=basePath%>operation/Publish_desc">发布系统</a></li>
-              <li><a href="<%=basePath%>operation/Service_desc">重启服务</a></li>
+              <li><a href="<%=basePath%>operation/Publish_desc">发布系统</a></li>
+              <li class="active"><a href="<%=basePath%>operation/Service_desc">重启服务</a></li>
             </ul>
           </div><!--/.well -->
         </div><!--/span-->
         <div class="span9">
           <div class="hero-unit" style="padding: 20px;">
-            <h1>发布系统</h1>
-            <p>对当前系统进行发布，将上传的代码解压覆盖当前运行的代码。</p>
-            <p>注意：发布系统后需手动再执行【重启服务】的操作。否则报错或不生效。</p>
-            <p>unzip -uo /var/www/app/release/yd-ass.zip -d /var/www/wwwroot/</p>
+            <h1>重启服务</h1>
+            <p>对服务器进行重启操作，目前有三个服务器，分别是：tomcat、server、synchronized</p>
+            <p>重启步骤：1、关闭服务；2、kill进程；3、启动服务
+            </p>
           </div>
-          <div class="hero-unit" style="padding: 20px;">
-          	<center>
-	            <h2>选择项目</h2>
+          <div class="row-fluid">
+            <div class="span4">
+              <h2>影响的项目</h2>
 	            <p>
 	            	<select id="selectProduct" size="6" multiple="multiple" >
-						<option value="hx-server">hx-server</option>
-						<option value="hx-synchronized">hx-synchronized</option>
 						<option value="zhaogongbao">zhaogongbao</option>
 						<option value="cms">cms</option>
 						<option value="yd-ass">yd-ass</option>
 						<option value="cqjxw">cqjxw</option>
 					</select>
 	            </p>
-	            <p><a class="btn btn-large btn-primary" href="javascript:;" onclick="publish()">开始发布 &raquo;</a></p>
-	      	</center>
-          </div>
+              <p><a class="btn btn-large btn-primary" href="javascript:;" onclick="restart(1)">重启tomcat &raquo;</a></p>
+            </div><!--/span-->
+            <div class="span4">
+              <h2>影响的项目</h2>
+	            <p>
+	            	<select id="selectProduct" size="6" multiple="multiple" >
+						<option value="server">server</option>
+					</select>
+	            </p>
+              <p><a class="btn btn-large btn-primary" href="javascript:;" onclick="restart(2)">重启server &raquo;</a></p>
+            </div><!--/span-->
+            <div class="span4">
+              <h2>影响的项目</h2>
+	            <p>
+	            	<select id="selectProduct" size="6" multiple="multiple" >
+						<option value="synchronized">synchronized</option>
+					</select>
+	            </p>
+              <p><a class="btn btn-large btn-primary" href="javascript:;" onclick="restart(3)">重启synchronized &raquo;</a></p>
+            </div><!--/span-->
+          </div><!--/row-->
         </div><!--/span-->
       </div><!--/row-->
 
@@ -84,19 +100,20 @@
 </html>
 
 <script type="text/javascript">
-	function publish() {
-		var products = $('#selectProduct').val();
-		if(typeof(products) != 'undefined' && products != null && products.length > 0) {
-			if(confirm("确定要发布项目【"+products+"】吗?")){
+	function restart(type) {
+		var serviceType = new Array();
+		serviceType[1] = 'tomcat';
+		serviceType[2] = 'server';
+		serviceType[3] = 'synchronized';
+		if(typeof(type) != 'undefined') {
+			if(confirm("确定要重启【" + serviceType[type] + "】吗?")){
 				ajaxPost({
-					url : "<%=basePath%>operation/Publish_publish?products=" + products,
+					url : "<%=basePath%>operation/Service_restart?type=" + type,
 					success : function(response) {
 						alert(response.data);
 					}
 				});
 			}
-		} else {
-			alert("请至少选择一个项目！");
 		}
 	}
 </script>

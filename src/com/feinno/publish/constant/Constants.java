@@ -63,4 +63,14 @@ public class Constants {
 		public static final int SYNC = 3;
 	}
 	
+	/**
+	 * 系统session常量类
+	 */
+	public class SessionKey {
+		/**请求登陆验证key*/
+		public static final String VALIDATE_KEY = "VALIDATE_KEY";
+		/**登陆用户信息key*/
+		public static final String USER_INFO = "USER_INFO";
+	}
+	
 }

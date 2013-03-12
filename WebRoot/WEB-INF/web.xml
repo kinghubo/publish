@@ -10,15 +10,26 @@
     	<listener-class>com.feinno.publish.filter.InitConfigFilter</listener-class>
     </listener>
     
+    <!-- 权限过滤器，验证权限 -->
+	<filter>
+        <filter-name>ValidateFilter</filter-name>
+        <filter-class>com.feinno.publish.iterceptor.ValidateFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>ValidateFilter</filter-name>
+        <url-pattern>/pages/*</url-pattern>
+    </filter-mapping>
+    
+    <!-- struts2 -->
 	<filter>
         <filter-name>struts2</filter-name>
         <filter-class>org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter</filter-class>
     </filter>
-
     <filter-mapping>
         <filter-name>struts2</filter-name>
         <url-pattern>/*</url-pattern>
-    </filter-mapping>
+    </filter-mapping><!-- /struts2 -->
+    
 	
   <welcome-file-list>
     <welcome-file>index.jsp</welcome-file>

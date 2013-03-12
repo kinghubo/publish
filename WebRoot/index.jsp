@@ -1,12 +1,12 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-<%@ include file="/include.jsp"%>
+<%@ include file="/pages/include.jsp"%>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>
     <base href="<%=basePath%>">
     
-    <title>My JSP 'index.jsp' starting page</title>
+    <title>务工易后向生产发布系统</title>
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
@@ -53,14 +53,61 @@
 
       <form class="form-signin" action="<%=basePath%>Index!login">
         <h2 class="form-signin-heading">Please sign in</h2>
-        <input type="text" class="input-block-level" placeholder="Email address">
-        <input type="password" class="input-block-level" placeholder="Password">
-        <label class="checkbox">
-          <input type="checkbox" value="remember-me"> Remember me
+        <label>
+		    <input type="text" class="input-block-level" name="mobilePhone" id="mobilePhone" placeholder="手机号码">
+		    <button class="btn btn-large btn-primary" type="button" onclick="getValidateCode()">获取登录验证码</button>
         </label>
-        <button class="btn btn-large btn-primary" type="submit">Sign in</button>
+        <input type="text" class="input-block-level" name="validateCode" id="validateCode" placeholder="验证码">
+        <button class="btn btn-large btn-primary" type="submit">登录</button>
       </form>
 
     </div>
   </body>
 </html>
+
+<script type="text/javascript">
+	function getValidateCode() {
+		var mobilePhone = $('#mobilePhone').val().trim();
+		if(isEmpty(mobilePhone)) {
+			alert("请录入手机号码！");
+		} else {
+			ajaxPost({
+				url : "<%=basePath%>Index!getValidateCode?mobilePhone=" + mobilePhone,
+				success : function(response) {
+					alert(response.data);
+				}
+			});
+		}
+	}
+
+	$(function(){
+		$('form').ajaxForm({
+			dataType:  'json',
+			beforeSubmit: validate,
+			success : function(response) {
+				if(response.statusCode == '0') {
+					if(window.event){
+						window.event.returnValue = false;
+					}
+					document.location.href = basePath + "operation/Backup_desc";
+				} else {
+					alert(response.data);
+				}
+			}
+		}); 
+	});
+
+	function validate() {
+		var mobilePhone = $('#mobilePhone').val().trim();
+		var validateCode = $('#validateCode').val().trim();
+		if(isEmpty(mobilePhone)) {
+			alert("请录入手机号码！");
+			return false;
+		}
+		if(isEmpty(validateCode)) {
+			alert("请录入验证码，如果超过2分钟没收到验证码，请重新获取登录验证码！");
+			return false;
+		}
+		return true;
+	}
+</script>

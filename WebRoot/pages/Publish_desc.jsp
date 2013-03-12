@@ -1,18 +1,18 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-<%@ include file="/include.jsp"%>
+<%@ include file="/pages/include.jsp"%>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>
     <base href="<%=basePath%>">
     
-    <title>系统备份</title>
+    <title>发布系统</title>
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 	<meta http-equiv="description" content="This is my page">
-    
+	
     <style type="text/css">
       body {
         padding-top: 60px;
@@ -40,19 +40,19 @@
           <div class="well sidebar-nav">
             <ul class="nav nav-list">
               <li class="nav-header">操作菜单</li>
-              <li class="active"><a href="<%=basePath%>operation/Backup_desc">系统备份</a></li>
+              <li><a href="<%=basePath%>operation/Backup_desc">系统备份</a></li>
               <li><a href="<%=basePath%>operation/Upload_desc">上传代码</a></li>
-              <li><a href="<%=basePath%>operation/Publish_desc">发布系统</a></li>
+              <li class="active"><a href="<%=basePath%>operation/Publish_desc">发布系统</a></li>
               <li><a href="<%=basePath%>operation/Service_desc">重启服务</a></li>
             </ul>
           </div><!--/.well -->
         </div><!--/span-->
         <div class="span9">
           <div class="hero-unit" style="padding: 20px;">
-            <h1>系统备份</h1>
-            <p>对当前系统进行备份，将目前正在运行的代码打包放到备份目录中。</p>
-            <p>备份目录：/var/www/app/bak</p>
-            <p>命名规则：项目名称_YYYY-MM-DD_hh:mm:ss。例如：zhaogongbao_2013-03-06_12:30:00.zip</p>
+            <h1>发布系统</h1>
+            <p>对当前系统进行发布，将上传的代码解压覆盖当前运行的代码。</p>
+            <p>注意：发布系统后需手动再执行【重启服务】的操作。否则报错或不生效。</p>
+            <p>unzip -uo /var/www/app/release/yd-ass.zip -d /var/www/wwwroot/</p>
           </div>
           <div class="hero-unit" style="padding: 20px;">
           	<center>
@@ -67,7 +67,7 @@
 						<option value="cqjxw">cqjxw</option>
 					</select>
 	            </p>
-	            <p><a class="btn btn-large btn-primary" href="javascript:;" onclick="backup()">开始备份 &raquo;</a></p>
+	            <p><a class="btn btn-large btn-primary" href="javascript:;" onclick="publish()">开始发布 &raquo;</a></p>
 	      	</center>
           </div>
         </div><!--/span-->
@@ -84,18 +84,17 @@
 </html>
 
 <script type="text/javascript">
-	function backup() {
+	function publish() {
 		var products = $('#selectProduct').val();
 		if(typeof(products) != 'undefined' && products != null && products.length > 0) {
-			if(confirm("确定要备份项目【"+products+"】吗?")){
+			if(confirm("确定要发布项目【"+products+"】吗?")){
 				ajaxPost({
-					url : "<%=basePath%>operation/Backup_backup?products=" + products,
+					url : "<%=basePath%>operation/Publish_publish?products=" + products,
 					success : function(response) {
 						alert(response.data);
 					}
 				});
 			}
-			
 		} else {
 			alert("请至少选择一个项目！");
 		}

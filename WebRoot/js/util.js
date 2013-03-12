@@ -54,3 +54,15 @@ function ajaxPost(config){
 		}
 	});
 }
+
+/**
+ * 是否为空
+ * @param data
+ * @return true(空)、false(非空)
+ */
+function isEmpty(data) {
+	data = data + ""; // 转换为字符
+	if(data && typeof(data) != "undefined" && data.length > 0)
+		return false;
+	return true;
+}

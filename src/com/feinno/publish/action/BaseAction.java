@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.struts2.ServletActionContext;
 
@@ -41,6 +42,15 @@ public class BaseAction extends ActionSupport {
 		HttpServletResponse response = ServletActionContext.getResponse();
 		response.setCharacterEncoding("UTF-8");
 		return response;
+	}
+	
+	/**
+	 * 获得session(HttpSession对象）
+	 * 
+	 * @return 当前请求
+	 */
+	protected HttpSession getSession() {
+		return getRequest().getSession();
 	}
 
 	/**
