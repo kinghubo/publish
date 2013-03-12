@@ -1,7 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ include file="/pages/include.jsp"%>
 
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>
     <base href="<%=basePath%>">
@@ -101,7 +100,8 @@
 		var mobilePhone = $('#mobilePhone').val().trim();
 		var validateCode = $('#validateCode').val().trim();
 		if(isEmpty(mobilePhone)) {
-			alert("请录入手机号码！");
+			//alert("请录入手机号码！");
+			art.alert('请录入手机号码！');
 			return false;
 		}
 		if(isEmpty(validateCode)) {

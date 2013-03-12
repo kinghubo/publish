@@ -93,7 +93,7 @@ public class IndexAction extends BaseAction{
 				}
 				
 				try {
-					SMSHelper.getInstanse().sendSMS(mobilePhone, "您正在使用短信方式登录系统，本次登陆验证码为是【" + validateCode + "】，请您妥善保管！【务工易后向发布系统】");
+					SMSHelper.getInstanse().sendSMS(mobilePhone, "您正在使用短信方式登录系统，本次登陆验证码是【" + validateCode + "】，请您妥善保管！【务工易后向发布系统】");
 					response.setData("短信发送成功，请录入短信验证码进行登陆！");
 				} catch (Exception ex) {
 					response.setData("短信发送异常！请稍后重试");
