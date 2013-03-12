@@ -41,9 +41,11 @@ public class Configure {
 	 * ./properties/system.properties
 	 */
 	private static Configuration sysConfig;
+	private static Configuration smsConfig;
 	public void init() {
 		try {
 			sysConfig = new PropertiesConfiguration(ConfigFile.SYS_CONFIG);
+			smsConfig = new PropertiesConfiguration(ConfigFile.SMS_CONFIG);
 			
 			initRunDir();
 		} catch (ConfigurationException ex) {
@@ -79,5 +81,12 @@ public class Configure {
 			getInstance().init();
 		}
 		return sysConfig;
+	}
+	
+	public static Configuration getSmsConfig() {
+		if (smsConfig == null) {
+			getInstance().init();
+		}
+		return smsConfig;
 	}
 }

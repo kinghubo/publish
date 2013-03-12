@@ -31,6 +31,7 @@ public class Constants {
 	 */
 	public class ConfigFile {
 		public static final String SYS_CONFIG = "./properties/system.properties";
+		public static final String SMS_CONFIG = "./properties/sms.properties";
 		
 		/**
 		 * 系统配置文件key信息

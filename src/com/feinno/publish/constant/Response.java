@@ -1,6 +1,5 @@
 package com.feinno.publish.constant;
 
-import java.lang.reflect.Type;
 
 /**
  * 通过泛型返回请求的响应.这里只返回单个对象和java基本类型的情况。
