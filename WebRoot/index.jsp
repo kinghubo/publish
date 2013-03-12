@@ -68,29 +68,36 @@
 	function getValidateCode() {
 		var mobilePhone = $('#mobilePhone').val().trim();
 		if(isEmpty(mobilePhone)) {
-			alert("请录入手机号码！");
+			art.alert("请录入手机号码！");
 		} else {
+			var dialog2 = art.dialog({ lock: true });
 			ajaxPost({
 				url : "<%=basePath%>Index!getValidateCode?mobilePhone=" + mobilePhone,
 				success : function(response) {
-					alert(response.data);
+					dialog2.close();
+					art.alert(response.data);
 				}
 			});
 		}
 	}
 
 	$(function(){
+		var dialog;
 		$('form').ajaxForm({
 			dataType:  'json',
 			beforeSubmit: validate,
+			beforeSend: function() {
+				dialog = art.dialog({ lock: true });
+			},
 			success : function(response) {
+				dialog.close();
 				if(response.statusCode == '0') {
 					if(window.event){
 						window.event.returnValue = false;
 					}
 					document.location.href = basePath + "operation/Backup_desc";
 				} else {
-					alert(response.data);
+					art.alert(response.data);
 				}
 			}
 		}); 
@@ -100,12 +107,11 @@
 		var mobilePhone = $('#mobilePhone').val().trim();
 		var validateCode = $('#validateCode').val().trim();
 		if(isEmpty(mobilePhone)) {
-			//alert("请录入手机号码！");
-			art.alert('请录入手机号码！');
+			art.alert("请录入手机号码！");
 			return false;
 		}
 		if(isEmpty(validateCode)) {
-			alert("请录入验证码，如果超过2分钟没收到验证码，请重新获取登录验证码！");
+			art.alert("请录入验证码，如果超过2分钟没收到验证码，请重新获取登录验证码！");
 			return false;
 		}
 		return true;

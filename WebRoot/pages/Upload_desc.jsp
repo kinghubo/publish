@@ -99,10 +99,12 @@
 	$(function(){
 		var bar = $('.bar');
 		var percent = $('.percent');
-		   
+
+		var dialog;
 		$('#releaseForm').ajaxForm({
 			dataType:  'json',
 		    beforeSend: function() {
+				dialog = art.dialog({ lock: true });
 		        var percentVal = '0%';
 		        bar.width(percentVal)
 		        percent.html(percentVal);
@@ -119,7 +121,8 @@
 		        percent.html(percentVal);
 			},
 			success : function(response) {
-				alert(response.data);
+				dialog.close();
+				art.alert(response.data);
 			}
 		}); 
 	});
@@ -127,19 +130,19 @@
 	function validate() {
 		var releaseFile = $('#releaseFile').val();
 		if(typeof(releaseFile) == 'undefined' || releaseFile.length == 0) {
-			alert("请选择上传代码！");
+			art.alert("请选择上传代码！");
 			return false;
 		}
 		var selectProduct = $('#selectProduct').val();
 		if(typeof(selectProduct) == 'undefined' || selectProduct.length == 0) {
-			alert("请选择上传代码所属项目！");
+			art.alert("请选择上传代码所属项目！");
 			return false;
 		}
 
 		releaseFile = releaseFile.split("\\");
 		var fileName = releaseFile[releaseFile.length - 1];
 		if(fileName != selectProduct + ".zip") {
-			alert("上传的代码包文件名与选择的项目包不一致！\r\n你选择的上传类型为【" + selectProduct + "】\r\n上传的文件为【" + fileName + "】");
+			art.alert("上传的代码包文件名与选择的项目包不一致！<br/>你选择的上传类型为【" + selectProduct + "】<br/>上传的文件为【" + fileName + "】");
 		    return false;
 		}
 		

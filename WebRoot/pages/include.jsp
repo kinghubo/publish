@@ -7,7 +7,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <link href="<%=basePath %>js/bootstrap/css/bootstrap.css" rel="stylesheet" media="screen">
 <link href="<%=basePath %>js/bootstrap/css/bootstrap-responsive.css" rel="stylesheet" media="screen">
-<link href="<%=basePath %>js/artDialog-5.0.3/skins/default.css" rel="stylesheet" media="screen">
+<link href="<%=basePath %>js/artDialog-5.0.3/skins/blue.css" rel="stylesheet" media="screen">
 
 <script src="<%=basePath %>js/bootstrap/jquery-1.7.1.js"></script>
 <script src="<%=basePath %>js/bootstrap/js/bootstrap.js"></script>
@@ -18,4 +18,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <script type="text/javascript">
 	var basePath = "<%=basePath%>";
+
+	// 设置弹出框默认样式
+	(function (d) {
+	    d['okValue'] = '确定';
+	    d['cancelValue'] = '取消';
+	    d['title'] = '消息';
+	    // [more..]
+	})(art.dialog.defaults);
 </script>

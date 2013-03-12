@@ -105,14 +105,16 @@
 		serviceType[2] = 'server';
 		serviceType[3] = 'synchronized';
 		if(typeof(type) != 'undefined') {
-			if(confirm("确定要重启【" + serviceType[type] + "】吗?")){
+			art.confirm("确定要重启【" + serviceType[type] + "】吗?", function(){
+				var dialog = art.dialog({ lock: true });
 				ajaxPost({
 					url : "<%=basePath%>operation/Service_restart?type=" + type,
 					success : function(response) {
-						alert(response.data);
+						dialog.close();
+						art.alert(response.data);
 					}
 				});
-			}
+			}, function(){});
 		}
 	}
 </script>

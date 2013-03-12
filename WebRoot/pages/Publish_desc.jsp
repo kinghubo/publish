@@ -86,16 +86,18 @@
 	function publish() {
 		var products = $('#selectProduct').val();
 		if(typeof(products) != 'undefined' && products != null && products.length > 0) {
-			if(confirm("确定要发布项目【"+products+"】吗?")){
+			art.confirm("确定要发布项目【"+products+"】吗?", function(){
+				var dialog = art.dialog({ lock: true });
 				ajaxPost({
 					url : "<%=basePath%>operation/Publish_publish?products=" + products,
 					success : function(response) {
-						alert(response.data);
+						dialog.close();
+						art.alert(response.data);
 					}
 				});
-			}
+			}, function(){});
 		} else {
-			alert("请至少选择一个项目！");
+			art.alert("请至少选择一个项目！");
 		}
 	}
 </script>

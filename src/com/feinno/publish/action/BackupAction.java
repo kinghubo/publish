@@ -51,7 +51,7 @@ public class BackupAction extends BaseAction{
 				}
 				status = RunCommandHelper.runCommandLine(line);
 				if (status != 0) {
-					msg.append("【" + product + "】备份失败！\r\n");
+					msg.append("【" + product + "】备份失败！<br/>");
 				}
 			}
 			if (msg.length() == 0) {

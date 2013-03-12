@@ -54,7 +54,7 @@ public class PublishAction extends BaseAction{
 				}
 				status = RunCommandHelper.runCommandLine(line);
 				if (status != 0) {
-					msg.append("【" + product + "】发布失败！\r\n");
+					msg.append("【" + product + "】发布失败！<br/>");
 				}
 			}
 			if (msg.length() == 0) {
