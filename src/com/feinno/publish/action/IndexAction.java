@@ -45,20 +45,26 @@ public class IndexAction extends BaseAction{
 		Response<String> response = new Response<String>();
 		response.setStatusCode(-1);
 		if (!StringUtil.isEmpty(mobilePhone) && !StringUtil.isEmpty(validateCode)) {
-			Object validateObject = getSession().getAttribute(SessionKey.VALIDATE_KEY);
-			if (validateObject != null) {
-				Map<String, String> valueMap = (Map<String, String>)validateObject;
-				String validateNo = valueMap.get(mobilePhone);
-				if (validateCode.equals(validateNo)) {
-					getSession().setAttribute(SessionKey.USER_INFO, true);
-					response.setStatusCode(0);
-					response.setData("登陆成功！");
+			List<Object> canLoginNos = Configure.getSmsConfig().getList("canLoginNo");
+			if (canLoginNos.contains(mobilePhone)) { // 检查指定号码是否具有登陆权限
+				Object validateObject = getSession().getAttribute(SessionKey.VALIDATE_KEY);
+				if (validateObject != null) {
+					Map<String, String> valueMap = (Map<String, String>)validateObject;
+					String validateNo = valueMap.get(mobilePhone);
+					if (validateCode.equals(validateNo)) {
+						getSession().setAttribute(SessionKey.USER_INFO, true);
+						response.setStatusCode(0);
+						response.setData("登陆成功！");
+					} else {
+						response.setData("验证码错误！");
+					}
 				} else {
-					response.setData("验证码错误！");
+					response.setData("请先录入手机号码获取验证码再进行登陆操作！");
 				}
 			} else {
-				response.setData("请先录入手机号码获取验证码再进行登陆操作！");
+				response.setData("对不起，为保证系统的安全性，您不具备登陆本系统的权限，若确实需要登录，请联系胡波开通权限，谢谢合作！");
 			}
+			
 		} else {
 			response.setData("手机号或者验证码不能为空！");
 		}
