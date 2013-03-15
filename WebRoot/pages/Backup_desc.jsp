@@ -35,17 +35,7 @@
   <body>
     <div class="container-fluid">
       <div class="row-fluid">
-        <div class="span3">
-          <div class="well sidebar-nav">
-            <ul class="nav nav-list">
-              <li class="nav-header">操作菜单</li>
-              <li class="active"><a href="<%=basePath%>operation/Backup_desc">系统备份</a></li>
-              <li><a href="<%=basePath%>operation/Upload_desc">上传代码</a></li>
-              <li><a href="<%=basePath%>operation/Publish_desc">发布系统</a></li>
-              <li><a href="<%=basePath%>operation/Service_desc">重启服务</a></li>
-            </ul>
-          </div><!--/.well -->
-        </div><!--/span-->
+        <%@ include file="/pages/common/menu.jsp"%>
         <div class="span9">
           <div class="hero-unit" style="padding: 20px;">
             <h1>系统备份</h1>
@@ -83,6 +73,8 @@
 </html>
 
 <script type="text/javascript">
+	selectMenu('menu_backup');
+	
 	function backup() {
 		var products = $('#selectProduct').val();
 		if(typeof(products) != 'undefined' && products != null && products.length > 0) {
