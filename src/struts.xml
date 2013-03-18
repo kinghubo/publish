@@ -6,8 +6,14 @@
 <struts>
     <constant name="struts.devMode" value="true" />
     
+    
     <!-- 首页 -->
     <package name="index" extends="struts-default" namespace="/">
+    	<!-- 全局结果处理，必须在所有action前面 -->
+        <global-results>
+        	<result name="login">/index.jsp</result>
+        </global-results>
+        
         <action name="Index" class="com.feinno.publish.action.IndexAction" />
     </package>
     

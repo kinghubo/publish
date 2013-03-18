@@ -14,7 +14,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script src="<%=basePath%>js/jquery.form.js"></script>
 <script src="<%=basePath%>js/artDialog-5.0.3/artDialog.min.js"></script>
 <script src="<%=basePath%>js/artDialog-5.0.3/artDialog.plugins.min.js"></script>
-<script src="<%=basePath%>js/util.js"></script>
+<script src="<%=basePath%>js/util.js?version=20130318"></script>
 
 <script type="text/javascript">
 	var basePath = "<%=basePath%>";

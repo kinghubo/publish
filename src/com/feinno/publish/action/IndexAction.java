@@ -12,6 +12,7 @@ import com.feinno.publish.constant.Response;
 import com.feinno.publish.constant.Constants.SessionKey;
 import com.feinno.publish.util.Configure;
 import com.feinno.publish.util.SMSHelper;
+import com.opensymphony.xwork2.ActionContext;
 
 
 
@@ -70,6 +71,11 @@ public class IndexAction extends BaseAction{
 		}
 		
 		print(JSON.toJSONString(response));
+	}
+	
+	public String logout() {
+		ActionContext.getContext().getSession().clear();
+		return LOGIN;
 	}
 	
 	/**

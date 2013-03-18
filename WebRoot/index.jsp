@@ -92,10 +92,7 @@
 			success : function(response) {
 				dialog.close();
 				if(response.statusCode == '0') {
-					if(window.event){
-						window.event.returnValue = false;
-					}
-					document.location.href = basePath + "operation/Backup_desc";
+					gotoURL(basePath + "operation/Backup_desc");
 				} else {
 					art.alert(response.data);
 				}

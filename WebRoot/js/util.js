@@ -56,6 +56,18 @@ function ajaxPost(config){
 }
 
 /**
+ * 跳转到指定的url
+ * @param url
+ * @return
+ */
+function gotoURL(url) {
+	if(window.event){
+		window.event.returnValue = false;
+	}
+	document.location.href = url;
+}
+
+/**
  * 是否为空
  * @param data
  * @return true(空)、false(非空)
