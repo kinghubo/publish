@@ -1,5 +1,5 @@
-<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-<%@ include file="/pages/include.jsp"%>
+﻿<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ include file="/pages/common/include.jsp"%>
 
 <html>
   <head>
